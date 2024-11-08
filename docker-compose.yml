@@ -1,0 +1,51 @@
+version: "3.3"
+
+services:
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+
+  db:
+    image: postgres:15.5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U timer_vim_hoff_user -d timer_vim_hoff" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+
+  server:
+    build:
+      context: ./backend
+    image: backend
+    environment:
+      - PYTHONPATH=/usr/src/backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/usr/src/backend
+    restart: always
+    env_file:
+      - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "8m"
+        max-file: "10"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

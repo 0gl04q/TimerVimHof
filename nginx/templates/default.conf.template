@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name ${SERVER_NAME};
+
+    client_max_body_size 8m;
+
+    uwsgi_connect_timeout 180;
+    uwsgi_read_timeout 180;
+    uwsgi_send_timeout 180;
+
+    location / {
+        proxy_pass http://server:8000;
+        proxy_redirect    default;
+        proxy_set_header    Host $host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-Proto $scheme;
+        client_max_body_size    8m;
+    }
+}

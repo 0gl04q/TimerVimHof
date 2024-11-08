@@ -1,0 +1,205 @@
+:root {
+  --primary: #1E88E5;
+  --secondary: #64B5F6;
+  --ice: #E3F2FD;
+  --dark: #1565C0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, var(--ice), var(--secondary));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  max-width: 600px;
+  width: 90%;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.breath-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.breath-circle.active {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.timer-text {
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  background: var(--dark);
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:not(#resetBtn):hover {
+  transform: translateY(-2px);
+}
+
+.rounds {
+  font-size: 1.5rem;
+  color: var(--dark);
+  margin: 1rem 0;
+}
+
+.phase-indicator {
+  font-size: 1.2rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+.progress-ring {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 320px;
+  height: 320px;
+}
+
+.progress-ring__circle {
+  stroke: white;
+  stroke-width: 8px;
+  fill: transparent;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.3s;
+}
+
+.settings-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--dark);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: unset;
+}
+
+.settings-button span {
+  display: none;
+}
+
+#resetBtn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--dark);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: unset;
+  width: 44px;
+  height: 44px;
+  transition: none;
+}
+
+.settings-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.settings-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.settings-group {
+  margin-bottom: 1.5rem;
+}
+
+.settings-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+  font-weight: bold;
+}
+
+.settings-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid var(--secondary);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.settings-group input:focus {
+  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
